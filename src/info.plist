@@ -235,7 +235,16 @@
 echo "http_proxy=$http_proxy"&gt;&amp;2
 echo "https_proxy=$https_proxy"&gt;&amp;2
 
-/usr/bin/python convert.py "$1"</string>
+if [ -e /usr/bin/python ]; then
+    python_binary="/usr/bin/python"
+elif [ -e /opt/homebrew/bin/python ]; then
+    python_binary="/opt/homebrew/bin/python"
+else
+    echo "Cannot find Python binary"
+    exit 1
+fi
+
+$python_binary convert.py "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -295,7 +304,16 @@ variables={allvars}</string>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>/usr/bin/python defaults.py $action "$dimensionality" "$unit"</string>
+				<string>if [ -e /usr/bin/python ]; then
+    python_binary="/usr/bin/python"
+elif [ -e /opt/homebrew/bin/python ]; then
+    python_binary="/opt/homebrew/bin/python"
+else
+    echo "Cannot find Python binary"
+    exit 1
+fi
+
+$python_binary defaults.py $action "$dimensionality" "$unit"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -391,7 +409,16 @@ variables={allvars}</string>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>/usr/bin/python info.py "$1"</string>
+				<string>if [ -e /usr/bin/python ]; then
+    python_binary="/usr/bin/python"
+elif [ -e /opt/homebrew/bin/python ]; then
+    python_binary="/opt/homebrew/bin/python"
+else
+    echo "Cannot find Python binary"
+    exit 1
+fi
+
+$python_binary info.py "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -441,7 +468,16 @@ variables={allvars}</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>/usr/bin/python info.py $1</string>
+				<string>if [ -e /usr/bin/python ]; then
+    python_binary="/usr/bin/python"
+elif [ -e /opt/homebrew/bin/python ]; then
+    python_binary="/opt/homebrew/bin/python"
+else
+    echo "Cannot find Python binary"
+    exit 1
+fi
+
+$python_binary info.py $1</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>

@@ -22,6 +22,7 @@ from workflow.background import run_in_background, is_running
 from workflow.update import Version
 from config import (
     bootstrap,
+    PYTHON_BINARY,
     DEFAULT_UNIT_DEFINITIONS,
     BUILTIN_UNIT_DEFINITIONS,
     COPY_UNIT,
@@ -667,7 +668,7 @@ def main(wf):
 
     if not wf.cached_data_fresh(CURRENCY_CACHE_NAME, CURRENCY_CACHE_AGE):
         # Update currency rates
-        cmd = ['/usr/bin/python', wf.workflowfile('currency.py')]
+        cmd = [PYTHON_BINARY, wf.workflowfile('currency.py')]
         run_in_background('update', cmd)
         wf.rerun = 0.5
 

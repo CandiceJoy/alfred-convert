@@ -37,6 +37,7 @@ import subprocess
 import sys
 import time
 import unicodedata
+from os import path
 
 try:
     import xml.etree.cElementTree as ET
@@ -50,6 +51,16 @@ from util import (
     LockFile,
     uninterruptible,
 )
+
+# ----------------------------------------------------------------------
+# Find Python Binary
+# ----------------------------------------------------------------------
+if os.path.exists('/usr/bin/python'):
+    PYTHON_BINARY = '/usr/bin/python'
+elif os.path.exists('/opt/homebrew/bin/python'):
+    PYTHON_BINARY = '/opt/homebrew/bin/python'
+else:
+    raise Exception("Could not find python binary")
 
 #: Sentinel for properties that haven't been set yet (that might
 #: correctly have the value ``None``)
@@ -2330,7 +2341,7 @@ class Workflow(object):
             update_script = os.path.join(os.path.dirname(__file__),
                                          b'update.py')
 
-            cmd = ['/usr/bin/python', update_script, 'check', repo, version]
+            cmd = [PYTHON_BINARY, update_script, 'check', repo, version]
 
             if self.prereleases:
                 cmd.append('--prereleases')
@@ -2369,7 +2380,7 @@ class Workflow(object):
         update_script = os.path.join(os.path.dirname(__file__),
                                      b'update.py')
 
-        cmd = ['/usr/bin/python', update_script, 'install', repo, version]
+        cmd = [PYTHON_BINARY, update_script, 'install', repo, version]
 
         if self.prereleases:
             cmd.append('--prereleases')

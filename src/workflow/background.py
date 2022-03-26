@@ -24,6 +24,7 @@ import sys
 import os
 import subprocess
 import pickle
+from .workflow import PYTHON_BINARY
 
 from workflow import Workflow
 
@@ -230,7 +231,7 @@ def run_in_background(name, args, **kwargs):
         _log().debug('[%s] command cached: %s', name, argcache)
 
     # Call this script
-    cmd = ['/usr/bin/python', __file__, name]
+    cmd = [PYTHON_BINARY, __file__, name]
     _log().debug('[%s] passing job to background runner: %r', name, cmd)
     retcode = subprocess.call(cmd)
 

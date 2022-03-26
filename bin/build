@@ -79,12 +79,13 @@ while getopts ":hv" opt; do
 done
 shift $((OPTIND-1))
 
-
-hash workflow-build &>/dev/null || fail "workflow-build script not found"
+if ! command -v workflow-build && ! [ -e workflow-build ]; then
+  fail "workflow-build script not found"
+fi
 
 test -d "$builddir" && {
   info "cleaning builddir ..."
-  rm -rf $vopt "$builddir/"*
+  rm -rf $vopt "$builddir/*"
   success "cleaned builddir"
 } || {
   mkdir $vopt "$builddir"
@@ -113,7 +114,7 @@ done
 cd -
 
 info "building workflow ..."
-workflow-build -f $vopt "$builddir"
+./workflow-build -f $vopt "$builddir"
 success "built workflow"
 
 info "clearing builddir ..."

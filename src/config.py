@@ -12,6 +12,15 @@
 
 import os
 import shutil
+# ----------------------------------------------------------------------
+# Find Python Binary
+# ----------------------------------------------------------------------
+if os.path.exists('/usr/bin/python'):
+    PYTHON_BINARY = '/usr/bin/python'
+elif os.path.exists('/opt/homebrew/bin/python'):
+    PYTHON_BINARY = '/opt/homebrew/bin/python'
+else:
+    raise Exception("Could not find python binary")
 
 # ----------------------------------------------------------------------
 # Result display
